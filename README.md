@@ -8,8 +8,7 @@ This is the codebase for my **personal developer portfolio**, built using the [T
 
 ## 🔗 Live Demo
 
-🌍 [https://yourdomain.dev](https://yourdomain.dev)  
-*Replace with your actual domain*
+🌍 [https://roshanaryal.dev](https://roshanaryal.dev)  
 
 ---
 
