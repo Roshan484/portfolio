@@ -1,29 +1,83 @@
-# Create T3 App
+# 🧑‍💻 Roshan Aryal – Portfolio
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is the codebase for my **personal developer portfolio**, built using the [T3 Stack](https://create.t3.gg/). It showcases my skills, projects, and development philosophy.
 
-## What's next? How do I make an app with this?
+> Designed to be fast, minimal, and scalable – just like the apps I love building.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+---
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## 🔗 Live Demo
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+🌍 [https://roshanaryal.dev](https://roshanaryal.dev)  
 
-## Learn More
+---
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+Built using the modern **T3 Stack**:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+- **Framework**: [Next.js (App Router)](https://nextjs.org/)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS, ShadCN UI
+- **API Layer**: tRPC + Zod
+- **ORM**: Drizzle (PostgreSQL)
+- **Deployment**: Vercel
+- **Animations**: Framer Motion
+- **Environment**: bun, .env, .eslint, Prettier
 
-## How do I deploy this?
+---
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## 🧱 Features
+
+- 🖥️ Responsive design (mobile-first)
+- 🚀 Lightning-fast performance
+- 🧩 Modular component architecture
+- 📂 Clean project structure using `app/` directory
+- ⚙️ Easy to maintain and scale
+- 🔍 SEO-ready and optimized for sharing
+
+---
+
+## 📁 Project Structure
+
+```bash
+.
+├── app/                  # App Router pages, layouts
+├── components/           # Reusable UI components
+├── server/               # tRPC routes, Database schema and server-side logic
+├── lib/                  # Utilities (auth, helpers)
+├── styles/               # Global styles and Tailwind config
+├── public/               # Static files (images, icons, etc.)
+├── env.mjs               # Environment variables definition
+├── drizzle.config.ts     # Drizzle configs
+└── ...
+
+
+🚀 Getting Started
+Clone the repo and install dependencies:
+
+bash
+Copy
+Edit
+git clone https://github.com/roshanaryal/portfolio.git
+cd portfolio
+
+bun install
+cp .env.example .env # Add your secrets (e.g., DATABASE_URL)
+
+bun db:push         # Push DB schema if needed
+bun dev             # Start dev server
+
+
+🔒 Environment Variables
+The .env file should include:
+
+env
+Copy
+Edit
+DATABASE_URL=your_postgres_url
+NEXT_PUBLIC_SITE_URL=https://yourdomain.dev
+
+
+🙋‍♂️ Author
+Roshan Aryal
