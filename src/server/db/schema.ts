@@ -25,3 +25,30 @@ export const posts = createTable(
   }),
   (t) => [index("name_idx").on(t.name)],
 );
+
+export const projects = createTable("project", (d) => ({
+  id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+  title: d.varchar({ length: 256 }),
+  description: d.varchar({ length: 256 }),
+  tags: d.varchar({ length: 256 }).array(),
+  image: d.varchar({ length: 256 }),
+  demoUrl: d.varchar({ length: 256 }),
+  repoUrl: d.varchar({ length: 256 }),
+  createdAt: d
+    .timestamp({ withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+}));
+
+export const contacts = createTable("contact", (d) => ({
+  id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+  name: d.varchar({ length: 256 }),
+  email: d.varchar({ length: 256 }),
+  message: d.varchar({ length: 256 }),
+  createdAt: d
+    .timestamp({ withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+}));
