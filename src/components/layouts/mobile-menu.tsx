@@ -18,7 +18,7 @@ export function MobileMenu() {
             icon: (
                 <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
             ),
-            href: "#",
+            href: "/",
         },
 
         {
@@ -26,14 +26,14 @@ export function MobileMenu() {
             icon: (
                 <IconUser className="h-full w-full text-neutral-500 dark:text-neutral-300" />
             ),
-            href: "#",
+            href: "/#about",
         },
         {
             title: "Projects",
             icon: (
                 <IconTerminal2 className="h-full w-full text-neutral-500 dark:text-neutral-300" />
             ),
-            href: "#",
+            href: "/#projects",
         },
         {
             title: "Download Resume",
@@ -54,7 +54,7 @@ export function MobileMenu() {
                 <IconContract className="h-full w-full text-neutral-500 dark:text-neutral-300" />
 
             ),
-            href: "#",
+            href: "/#skills",
         },
 
         {
@@ -62,14 +62,14 @@ export function MobileMenu() {
             icon: (
                 <IconBadge className="h-full w-full text-neutral-500 dark:text-neutral-300" />
             ),
-            href: "#",
+            href: "/#services",
         },
         {
             title: "Contact",
             icon: (
                 <IconMail className="h-full w-full text-neutral-500 dark:text-neutral-300" />
             ),
-            href: "#",
+            href: "/#contact",
         },
     ];
     return (
