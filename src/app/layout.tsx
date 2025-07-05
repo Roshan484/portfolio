@@ -4,6 +4,7 @@ import { type Metadata } from "next";
 import { Oxanium } from "next/font/google";
 
 import { TRPCReactProvider } from "@/trpc/react";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Roshan Aryal",
@@ -23,7 +24,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${oxanium.className} ${oxanium.variable} dark bg-black`}>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>{children}
+          <Toaster
+            position="top-right"
+            richColors
+            className="dark"
+          />
+        </TRPCReactProvider>
       </body>
     </html>
   );
