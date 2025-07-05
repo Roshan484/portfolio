@@ -1,12 +1,12 @@
-/**
- * Checks if a given route is allowed.
- * All routes are allowed except 'roshan_dasboard'.
- *
- * @param route - The route to check
- * @returns true if allowed, false otherwise
- */
-export function isRouteAllowed(route: string): boolean {
-  return route !== "roshan_dashboard";
-}
+import type { MetadataRoute } from "next";
 
-export default isRouteAllowed;
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      userAgent: "*",
+      allow: ["/", "/*"],
+      disallow: ["/roshan_dashboard", "/roshan_dashboard/*"],
+    },
+    sitemap: "https://roshanaryal.dev/sitemap.xml",
+  };
+}
