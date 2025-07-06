@@ -29,7 +29,7 @@ export const posts = createTable(
 export const projects = createTable("project", (d) => ({
   id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
   title: d.varchar({ length: 256 }),
-  description: d.varchar({ length: 256 }),
+  description: d.text(),
   tags: d.varchar({ length: 256 }).array(),
   image: d.varchar({ length: 256 }),
   demoUrl: d.varchar({ length: 256 }),

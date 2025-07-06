@@ -3,17 +3,18 @@ import Link from "next/link";
 import { SectionHeading } from "@/components/section-heading";
 import Image from "next/image";
 import { GlassmorphicCard } from "@/components/ui/glassmorphic-card";
-
 import { SkillBadge } from "@/components/ui/skill-badge";
 import { ProjectCard } from "@/components/project-card";
 import { Timeline } from "@/components/timeline";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
+import { api, HydrateClient } from "@/trpc/server";
 
 export default async function Home() {
+  const allProjects = await api.project.getAll()
   return (
-    <>
-      {/* Hero Section */}
+    <HydrateClient>
+
       <section
         id="home"
         className="hero-section  min-h-screen flex items-center justify-center text-center relative overflow-hidden"
@@ -187,54 +188,20 @@ export default async function Home() {
           <SectionHeading title="Featured Projects" subtitle="Some of my recent work" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-            <ProjectCard
-              title="Loksewa Tayari App"
-              description="A full-stack e-commerce platform built with Next.js, Stripe, and Prisma."
-              tags={["Next.js", "TypeScript", "Prisma", "Stripe"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
-            />
-            <ProjectCard
-              title="Task Management App"
-              description="A collaborative task management application with real-time updates."
-              tags={["React", "Firebase", "Tailwind CSS", "Redux"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
-            />
-            <ProjectCard
-              title="AI Content Generator"
-              description="An AI-powered content generation tool using OpenAI's GPT models."
-              tags={["Next.js", "OpenAI API", "Node.js", "MongoDB"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
-            />
-            <ProjectCard
-              title="Fitness Tracker"
-              description="A mobile-first fitness tracking application with data visualization."
-              tags={["React Native", "TypeScript", "D3.js", "Firebase"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
-            />
-            <ProjectCard
-              title="Weather Dashboard"
-              description="A beautiful weather dashboard with forecasts and historical data."
-              tags={["React", "Weather API", "Chart.js", "Styled Components"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
-            />
-            <ProjectCard
-              title="Portfolio Website"
-              description="This portfolio website built with Next.js and Tailwind CSS."
-              tags={["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
-            />
+            {
+              allProjects?.map((project) => (
+                <ProjectCard
+                  key={project.id}
+                  title={project.title ?? ''}
+                  description={project.description ?? ''}
+                  tags={project.tags ?? []}
+                  image={project.image ?? ''}
+                  demoUrl={project.demoUrl ?? ''}
+                  repoUrl={project.repoUrl ?? ''}
+                />
+              ))
+            }
+
           </div>
         </div>
       </section>
@@ -311,6 +278,6 @@ export default async function Home() {
           </div>
         </div>
       </section>
-    </>
+    </HydrateClient>
   );
 }

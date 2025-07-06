@@ -1,37 +1,39 @@
 "use client"
 import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { Controller, useForm, type SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import type z from "zod"
+import { projectSchema } from "@/schema/project"
+import { api } from "@/trpc/react"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import "react-quill-new/dist/quill.snow.css";
+import dynamic from "next/dynamic";
 
 
-const projectSchema = z.object({
-    title: z.string().min(1, "Project title is required").max(100, "Title must be less than 100 characters"),
-    image: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
-    description: z.string().min(10, "Description must be at least 10 characters").max(1000, "Description must be less than 1000 characters"),
-    demoUrl: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
-    repoUrl: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
-    tags: z.array(z.string()).min(1, "At least one tag is required").max(10, "Maximum 10 tags allowed")
-})
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 type ProjectFormData = z.infer<typeof projectSchema>
 
 function AddProjectForm() {
     const [tags, setTags] = useState<string[]>([])
     const [tagInput, setTagInput] = useState("")
-
+    const utils = api.useUtils();
+    const router = useRouter();
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting, isDirty },
         setValue,
-        reset
+        reset,
+        control,
+        setError
     } = useForm<ProjectFormData>({
         resolver: zodResolver(projectSchema),
         defaultValues: {
@@ -60,18 +62,45 @@ function AddProjectForm() {
         setValue("tags", newTags, { shouldValidate: true })
     }
 
-    const onSubmit = async (data: ProjectFormData) => {
-        try {
+    const createProjectMutation = api.project.create.useMutation({
+        onSuccess: async (data) => {
+            if (data.success) {
+                reset();
+                await utils.project.invalidate();
+                router.push("/roshan_dashboard?tab=project");
+                toast.success("Buyer created successfully");
+            } else {
+                toast.error(data.error ?? "Failed to create buyer");
+                setError("root", {
+                    type: "manual",
+                    message:
+                        data.error ?? "Something went wrong. Please try again later.",
+                });
+            }
 
-            await new Promise(resolve => setTimeout(resolve, 1000))
-            console.log("Project data:", data)
-            reset()
+        },
+        onError: (error) => {
+            console.error("Mutation error:", error);
+            toast.error("Failed to create project");
+            setError("root", {
+                type: "manual",
+                message: "Something went wrong. Please try again later.",
+            });
+        },
+    })
+
+    const onSubmit: SubmitHandler<ProjectFormData> = async (data: ProjectFormData) => {
+        try {
+            await createProjectMutation.mutateAsync(data)
             setTags([])
             setTagInput("")
-            alert("Project saved successfully!")
-        } catch (error) {
-            console.error("Error saving project:", error)
 
+        } catch (error) {
+            console.error(error, "Something went wrong. Please try again later.");
+            setError("root", {
+                type: "manual",
+                message: "Something went wrong. Please try again later.",
+            });
         }
     }
 
@@ -94,6 +123,11 @@ function AddProjectForm() {
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="space-y-6">
+                    {
+                        errors.root && (
+                            <p className="text-sm text-red-500">{errors.root.message}</p>
+                        )
+                    }
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="title">Project Title *</Label>
@@ -121,18 +155,6 @@ function AddProjectForm() {
                         </div>
                     </div>
 
-                    <div className="space-y-2">
-                        <Label htmlFor="description">Description *</Label>
-                        <Textarea
-                            id="description"
-                            placeholder="Describe your project..."
-                            className={`min-h-[100px] ${errors.description ? "border-red-500" : ""}`}
-                            {...register("description")}
-                        />
-                        {errors.description && (
-                            <p className="text-sm text-red-500">{errors.description.message}</p>
-                        )}
-                    </div>
 
                     <div className="space-y-2">
                         <Label htmlFor="tags">Tags * (Click to remove)</Label>
@@ -204,9 +226,30 @@ function AddProjectForm() {
                                 <p className="text-sm text-red-500">{errors.repoUrl.message}</p>
                             )}
                         </div>
+
+                    </div>
+                    <div className="space-y-2 mb-20 sm:mb-14">
+                        <Label className="mb-1 block font-medium">Property Description</Label>
+                        <Controller
+                            control={control}
+                            name="description"
+                            render={({ field }) => (
+                                <ReactQuill
+                                    theme="snow"
+                                    className="h-[200px]"
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                />
+                            )}
+                        />
+                        {
+                            errors.description && (
+                                <p className="text-sm text-red-500">{errors.description.message}</p>
+                            )
+                        }
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 mt-4">
                         <Button
                             type="submit"
                             disabled={isSubmitting}

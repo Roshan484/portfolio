@@ -4,18 +4,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { workSchema } from '@/schema/work'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import z from 'zod'
+import type z from 'zod'
 
 
-const workSchema = z.object({
-    title: z.string().min(1, "Work title is required").max(100, "Title must be less than 100 characters"),
-    company: z.string().min(1, "Company name is required").max(100, "Company name must be less than 100 characters"),
-    period: z.string().min(1, "Period is required").max(100, "Period must be less than 100 characters"),
-    description: z.string().min(10, "Description must be at least 10 characters").max(1000, "Description must be less than 1000 characters"),
-})
 
 type Work = z.infer<typeof workSchema>
 
