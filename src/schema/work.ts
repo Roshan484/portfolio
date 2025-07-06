@@ -18,3 +18,7 @@ export const workSchema = z.object({
     .min(10, "Description must be at least 10 characters")
     .max(1000, "Description must be less than 1000 characters"),
 });
+
+export const editWorkSchema = workSchema.extend({
+  id: z.number(),
+});

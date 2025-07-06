@@ -1,4 +1,4 @@
-.PHONY: up down rebuild logs clean migrate deploy
+.PHONY: up down rebuild logs clean push studio deploy dev
 
 up:
 	docker compose up -d
@@ -19,8 +19,14 @@ clean:
 	docker volume prune -f
 	docker network prune -f
 
-migrate:
-	docker compose exec backend bun drizzle-kit push
+push:
+	bun drizzle-kit push
 
 deploy:
-	docker compose exec backend bun deploy
+	bun deploy
+
+studio:
+	bun drizzle-kit studio
+
+dev:
+	bun dev

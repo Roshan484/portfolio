@@ -121,7 +121,7 @@ function ProjectTable() {
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-3">
-                                                <AlertForDelete deleteProject={() => deleteMutation.mutate({ id: project.id })} />
+                                                <AlertForDelete deleteProject={() => deleteMutation.mutateAsync({ id: project.id })} />
                                                 <ShowPreview
                                                     title={project.title ?? ""}
                                                     description={project.description ?? ""}

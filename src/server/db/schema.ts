@@ -45,7 +45,23 @@ export const contacts = createTable("contact", (d) => ({
   id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
   name: d.varchar({ length: 256 }),
   email: d.varchar({ length: 256 }),
+  subject: d.varchar({ length: 256 }),
   message: d.varchar({ length: 256 }),
+  emailSent: d.boolean().default(false),
+  createdAt: d
+    .timestamp({ withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+}));
+
+export const works = createTable("work", (d) => ({
+  id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+  title: d.varchar({ length: 256 }),
+  description: d.text(),
+  company: d.varchar({ length: 256 }),
+  period: d.varchar({ length: 256 }),
+
   createdAt: d
     .timestamp({ withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)

@@ -2,28 +2,29 @@
 
 import { useMobile } from "@/hooks/use-mobile"
 import { motion } from "framer-motion"
+import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card"
 
-
-const experiences = [
-
-    {
-        title: "Frontend Intern",
-        company: "Nep Tech Pal Pvt. Ltd.",
-        period: "Feb 2025 - Jun 2025",
-        description:
-            "Built websites and web applications for various clients. Worked with HTML, CSS, JavaScript, and Next.js.",
-    },
-    {
-        title: "Frontend Intern",
-        company: "Websoft Technology Nepal Pvt. Ltd.",
-        period: "Jan 2024 - May 2024",
-        description: "Assisted in developing web applications and learned modern web development practices.",
-    },
-]
-
-export function Timeline() {
+export function Timeline(
+    { workExperiences }: {
+        workExperiences: {
+            title: string | null,
+            company: string | null,
+            period: string | null,
+            description: string | null
+        }[]
+    }) {
     const isMobile = useMobile()
 
+    if (workExperiences.length === 0) {
+        return (
+            <Card>
+                <CardHeader>
+                    <CardTitle>Work Experience</CardTitle>
+                    <CardDescription>No work experience found</CardDescription>
+                </CardHeader>
+            </Card>
+        )
+    }
     return (
         <div
             className={`space-y-12 relative ${!isMobile
@@ -31,7 +32,7 @@ export function Timeline() {
                 : ""
                 }`}
         >
-            {experiences.map((experience, index) => (
+            {workExperiences?.map((experience, index) => (
                 <div
                     key={index}
                     className={`relative z-10 flex items-center ${index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"}`}

@@ -29,7 +29,7 @@ function AddProjectForm() {
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting, isDirty },
+        formState: { errors, isSubmitting },
         setValue,
         reset,
         control,
@@ -104,16 +104,7 @@ function AddProjectForm() {
         }
     }
 
-    const onSaveDraft = async (data: ProjectFormData) => {
-        try {
 
-            await new Promise(resolve => setTimeout(resolve, 500))
-            console.log("Draft saved:", data)
-            alert("Draft saved successfully!")
-        } catch (error) {
-            console.error("Error saving draft:", error)
-        }
-    }
 
     return (
         <Card>
@@ -258,15 +249,7 @@ function AddProjectForm() {
                         >
                             {isSubmitting ? "Saving..." : "Save Project"}
                         </Button>
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={handleSubmit(onSaveDraft)}
-                            disabled={isSubmitting || !isDirty}
-                            className="min-w-[120px]"
-                        >
-                            Save as Draft
-                        </Button>
+
                     </div>
                 </div>
             </CardContent>

@@ -12,6 +12,7 @@ import { api, HydrateClient } from "@/trpc/server";
 
 export default async function Home() {
   const allProjects = await api.project.getAll()
+  const allWorks = await api.work.getAll()
   return (
     <HydrateClient>
 
@@ -217,7 +218,7 @@ export default async function Home() {
           <SectionHeading title="Work Experience" subtitle="My professional journey" />
 
           <div className="mt-16">
-            <Timeline />
+            <Timeline workExperiences={allWorks} />
           </div>
         </div>
       </section>

@@ -5,30 +5,41 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { workSchema } from '@/schema/work'
+import { api } from '@/trpc/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import type z from 'zod'
-
-
 
 type Work = z.infer<typeof workSchema>
 
 const WorkExperience = () => {
-    const { handleSubmit, register, formState: { errors, isSubmitting }, setError } = useForm<Work>({
+    const utils = api.useUtils()
+    const { handleSubmit, register, formState: { errors, isSubmitting }, setError, reset } = useForm<Work>({
         resolver: zodResolver(workSchema),
         defaultValues: {
             title: "",
             company: "",
             period: "",
             description: ""
+        },
+        mode: "onChange"
+    })
+    const createWorkMutation = api.work.create.useMutation({
+        onSuccess: () => {
+            void utils.work.invalidate()
+            toast.success("Work created successfully")
+            reset()
+        },
+        onError: () => {
+            toast.error("Error creating work")
         }
     })
-
     const onSubmit = async (data: Work) => {
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000))
-            console.log("Work data:", data)
+            await createWorkMutation.mutateAsync(data)
+
         } catch (error) {
             console.error("Error saving work:", error)
             setError("root", { message: "Error saving work" })
@@ -68,10 +79,10 @@ const WorkExperience = () => {
                             <Textarea id="description" {...register("description")} />
                         </div>
 
+                        <Button type='submit' disabled={isSubmitting} className='w-full mt-4'>
+                            {isSubmitting ? "Saving..." : "Save"}
+                        </Button>
                     </form>
-                    <Button type='submit' disabled={isSubmitting} className='w-full mt-4'>
-                        {isSubmitting ? "Saving..." : "Save"}
-                    </Button>
                 </CardContent>
             </Card>
         </>
