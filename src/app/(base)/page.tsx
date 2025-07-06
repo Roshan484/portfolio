@@ -75,7 +75,7 @@ export default async function Home() {
               <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary/20 to-secondary/20 blur-xl opacity-70"></div>
               <div className="relative w-full h-full rounded-xl overflow-hidden border border-zinc-800">
                 <Image
-                  src="/placeholder.svg?height=600&width=600"
+                  src="/roshan.png"
                   alt="Roshan Aryal"
                   width={600}
                   height={600}
@@ -156,18 +156,22 @@ export default async function Home() {
           <SectionHeading title="My Skills" subtitle="Technologies I work with" />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-16">
-            <SkillBadge name="JavaScript" level={90} />
-            <SkillBadge name="TypeScript" level={85} />
-            <SkillBadge name="React" level={95} />
-            <SkillBadge name="Next.js" level={95} />
-            <SkillBadge name="Node.js" level={80} />
-            <SkillBadge name="HTML/CSS" level={95} />
-            <SkillBadge name="Tailwind CSS" level={90} />
-            <SkillBadge name="tRpc" level={75} />
-            <SkillBadge name="PostgreSQL" level={90} />
-            <SkillBadge name="ExpressJS" level={80} />
-            <SkillBadge name="Docker" level={80} />
-            <SkillBadge name="Git" level={85} />
+            <SkillBadge name="HTML" src="html-5.svg" level={95} />
+            <SkillBadge name="CSS" src="css-3.svg" level={95} />
+            <SkillBadge name="JavaScript" src="javascript-logo.svg" level={90} />
+            <SkillBadge name="TypeScript" src="typescript.svg" level={85} />
+            <SkillBadge name="Tailwind CSS" src="tailwind-css.svg" level={90} />
+            <SkillBadge name="React" src="react.svg" level={95} />
+            <SkillBadge name="React Native" src="react.svg" level={85} />
+            <SkillBadge name="Next.js" src="next-js.svg" level={95} />
+            <SkillBadge name="Node.js" src="node-js.svg" level={80} />
+            <SkillBadge name="tRpc" src="typescript.svg" level={75} />
+            <SkillBadge name="PostgreSQL" src="postgresql.svg" level={90} />
+            <SkillBadge name="ExpressJS" src="express.webp" level={80} />
+            <SkillBadge name="MongoDB" src="mongodb.svg" level={80} />
+            <SkillBadge name="Java" src="java.svg" level={80} />
+            <SkillBadge name="Docker" src="docker.svg" level={80} />
+            <SkillBadge name="Git" src="git.svg" level={85} />
           </div>
         </div>
       </section>

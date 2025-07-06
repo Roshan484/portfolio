@@ -1,13 +1,15 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 interface SkillBadgeProps {
     name: string
     level: number
+    src: string
 }
 
-export function SkillBadge({ name, level }: SkillBadgeProps) {
+export function SkillBadge({ name, level, src }: SkillBadgeProps) {
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -20,7 +22,13 @@ export function SkillBadge({ name, level }: SkillBadgeProps) {
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
 
                 <div className="relative">
-                    <div className="text-center mb-4 font-medium text-lg">{name}</div>
+                    <div className="text-center mb-4 font-medium text-lg">
+
+                        <div className="flex items-center justify-center gap-2">
+                            <Image src={`/language/${src}`} width={20} height={20} alt="skill icon" />
+                            {name}
+                        </div>
+                    </div>
 
                     <div className="relative h-2.5 w-full bg-zinc-700 rounded-full overflow-hidden">
                         <motion.div
